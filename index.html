@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem é Você Pokémon</title>
+    <style>
+    @font-face {
+        font-family: 'Pokemon';
+        src: url('https://cdn.jsdelivr.net/npm/pokemon-font@1.8.1/fonts/pokemon-font.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Pokemon', 'Arial', sans-serif;
+        letter-spacing: 1.5px;
+    }
+    
+    body {
+        background: linear-gradient(135deg, #dc0a2d 0%, #2a75bb 50%, #ffcb05 100%);
+        background-attachment: fixed;
+        color: #333;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow-x: hidden;
+    }
+    
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 10px, transparent 20px),
+            radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 15px, transparent 25px),
+            radial-gradient(circle at 40% 50%, rgba(255, 255, 255, 0.1) 20px, transparent 30px);
+        background-size: 300px 300px;
+        z-index: -1;
+    }
+    
+    .container {
+        max-width: 800px;
+        width: 100%;
+        margin: 20px auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 
+            0 10px 25px rgba(0, 0, 0, 0.5),
+            0 0 0 10px #ffcc00,
+            0 0 0 15px #2a75bb,
+            0 0 0 20px #dc0a2d;
+        padding: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .container::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+        transform: rotate(30deg);
+        pointer-events: none;
+    }
+    
+    header {
+        text-align: center;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 3px solid #dc0a2d;
+        position: relative;
+    }
+    
+    header::after {
+        content: "⚡";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 24px;
+        background: white;
+        padding: 0 10px;
+    }
+    
+    h1 {
+        color: #ffcc00;
+        font-size: 3.2rem;
+        margin-bottom: 10px;
+        text-shadow: 
+            4px 4px 0 #2a75bb, 
+            6px 6px 0 #3b4cca,
+            8px 8px 0 #1c2c71;
+        letter-spacing: 3px;
+        position: relative;
+        display: inline-block;
+    }
+    
+    h1::before, h1::after {
+        content: "◆";
+        color: #dc0a2d;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.5rem;
+    }
+    
+    h1::before {
+        left: -30px;
+    }
+    
+    h1::after {
+        right: -30px;
+    }
+    
+    h2 {
+        color: #2a75bb;
+        margin-bottom: 15px;
+        font-size: 2rem;
+        text-shadow: 2px 2px 0 #ffcc00;
+    }
+    
+    h3 {
+        color: #dc0a2d;
+        margin: 15px 0;
+        font-size: 1.8rem;
+        text-shadow: 2px 2px 0 #ffcc00;
+    }
+    
+    p {
+        margin-bottom: 15px;
+        line-height: 1.6;
+        font-size: 1.1rem;
+    }
+    
+    .intro {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .btn {
+        background: linear-gradient(to bottom, #ffcc00, #d4af37);
+        color: #3b4cca;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: block;
+        margin: 20px auto;
+        box-shadow: 
+            0 6px 0 #d4af37,
+            0 8px 20px rgba(0, 0, 0, 0.3);
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    
+    .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        transition: 0.5s;
+        z-index: -1;
+    }
+    
+    .btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 
+            0 8px 0 #d4af37,
+            0 12px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .btn:hover::before {
+        left: 100%;
+    }
+    
+    .btn:active {
+        transform: translateY(2px);
+        box-shadow: 
+            0 4px 0 #d4af37,
+            0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn:disabled {
+        background: linear-gradient(to bottom, #cccccc, #999999);
+        color: #666666;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: 0 4px 0 #999999;
+    }
+    
+    .quiz-container {
+        display: none;
+    }
+    
+    .question {
+        background: linear-gradient(to right, #3b4cca, #2a3999);
+        color: white;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        box-shadow: 
+            0 6px 12px rgba(0, 0, 0, 0.2),
+            inset 0 0 0 3px #ffcc00;
+        font-size: 1.4rem;
+        font-weight: bold;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .question::before {
+        content: "?";
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        font-size: 8rem;
+        opacity: 0.1;
+        transform: rotate(15deg);
+    }
+    
+    .options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    
+    .option {
+        background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+        padding: 20px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+        font-size: 1.1rem;
+        border: 3px solid transparent;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .option::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+        pointer-events: none;
+    }
+    
+    .option:hover {
+        background: linear-gradient(to bottom, #3b4cca, #2a3999);
+        color: white;
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .option.selected {
+        background: linear-gradient(to bottom, #dc0a2d, #a00505);
+        color: white;
+        font-weight: bold;
+        border: 3px solid #ffcc00;
+        transform: scale(1.03);
+        box-shadow: 0 0 15px rgba(220, 10, 45, 0.5);
+    }
+    
+    .progress {
+        height: 25px;
+        background-color: #f0f0f0;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        overflow: hidden;
+        border: 3px solid #3b4cca;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+    
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(to right, #dc0a2d, #ffcc00);
+        width: 0%;
+        transition: width 0.5s;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .progress-bar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+    }
+    
+    .result {
+        display: none;
+        text-align: center;
+    }
+    
+    .pokemon-card {
+        background: linear-gradient(135deg, #3b4cca 0%, #2a3999 100%);
+        border-radius: 20px;
+        padding: 25px;
+        margin: 20px 0;
+        box-shadow: 
+            0 8px 16px rgba(0, 0, 0, 0.3),
+            inset 0 0 0 5px #ffcc00;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .pokemon-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        transform: rotate(-30deg);
+        pointer-events: none;
+    }
+    
+    .pokemon-image {
+        width: 220px;
+        height: 220px;
+        margin: 0 auto 20px;
+        background: radial-gradient(circle, #ffffff 0%, #e0e0e0 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid #ffcc00;
+        overflow: hidden;
+        box-shadow: 
+            0 0 20px rgba(255, 204, 0, 0.8),
+            inset 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+    
+    .pokemon-image::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.1) 100%);
+        pointer-events: none;
+    }
+    
+    .pokemon-image img {
+        width: 95%;
+        height: 95%;
+        object-fit: contain;
+        filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+    }
+    
+    .stats {
+        margin-top: 25px;
+    }
+    
+    .stat {
+        margin-bottom: 15px;
+    }
+    
+    .stat-name {
+        font-weight: bold;
+        color: #ffcc00;
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+        text-shadow: 1px 1px 0 #000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .stat-name::after {
+        content: "";
+        flex-grow: 1;
+        height: 2px;
+        background: linear-gradient(to right, transparent, #ffcc00, transparent);
+        margin-left: 10px;
+    }
+    
+    .stat-bar-container {
+        height: 25px;
+        background-color: #444;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 2px solid #ffcc00;
+        box-shadow: 
+            0 2px 5px rgba(0, 0, 0, 0.3),
+            inset 0 0 5px rgba(0, 0, 0, 0.5);
+        position: relative;
+    }
+    
+    .stat-bar {
+        height: 100%;
+        background: linear-gradient(to right, #4caf50, #8bc34a);
+        border-radius: 10px;
+        transition: width 1s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 10px;
+        color: white;
+        font-weight: bold;
+        text-shadow: 1px 1px 0 #000;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stat-bar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+    }
+    
+    .restart-btn {
+        background: linear-gradient(to bottom, #3b4cca, #2a3999);
+        color: white;
+    }
+    
+    footer {
+        text-align: center;
+        margin-top: 30px;
+        color: white;
+        font-size: 1rem;
+        text-shadow: 1px 1px 0 #000;
+    }
+    
+    .type-badge {
+        display: inline-block;
+        padding: 8px 15px;
+        border-radius: 20px;
+        color: white;
+        font-weight: bold;
+        margin: 0 5px;
+        background-color: #68a090;
+        text-shadow: 1px 1px 0 #000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Animações */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-20px); }
+        60% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes shine {
+        0% { background-position: -100% 0; }
+        100% { background-position: 200% 0; }
+    }
+    
+    .pokemon-image {
+        animation: fadeIn 1s, bounce 1s;
+    }
+    
+    .option {
+        animation: fadeIn 0.5s;
+    }
+    
+    .btn {
+        animation: pulse 2s infinite;
+    }
+    
+    /* Responsividade */
+    @media (max-width: 650px) {
+        .options {
+            grid-template-columns: 1fr;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+        }
+        
+        .question {
+            padding: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .pokemon-image {
+            width: 180px;
+            height: 180px;
+        }
+        
+        .container {
+            padding: 20px;
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.5),
+                0 0 0 5px #ffcc00,
+                0 0 0 10px #2a75bb,
+                0 0 0 15px #dc0a2d;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <header>
+            <h1>Quem é Você Pokémon</h1>
+            <p>Descubra qual Pokémon da 1ª à 4ª geração combina com você!</p>
+        </header>
+        
+        <div class="intro" id="intro">
+            <h2>Seja bem-vindo ao Mundo Pokémon!</h2>
+            <p>Responda a 20 perguntas sobre sua personalidade e estilo de vida para descobrir qual Pokémon seria seu companheiro ideal na vida real.</p>
+            <p>Seja honesto em suas respostas para obter o resultado mais preciso!</p>
+            <button class="btn" id="start-btn">Iniciar Quiz</button>
+        </div>
+        
+        <div class="quiz-container" id="quiz-container">
+            <div class="progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+            <div class="question" id="question"></div>
+            
+            <div class="options" id="options"></div>
+            
+            <button class="btn" id="next-btn" disabled>Próxima Pergunta</button>
+        </div>
+        
+        <div class="result" id="result">
+            <h2>Seu Pokémon ideal é:</h2>
+            
+            <div class="pokemon-card">
+                <h3 id="pokemon-name"></h3>
+                
+                <div class="pokemon-image" id="pokemon-image">
+                    <!-- Imagem será carregada via JavaScript -->
+                </div>
+                
+                <p><strong>Tipo:</strong> <span id="pokemon-type"></span></p>
+                <p id="pokemon-description"></p>
+            </div>
+            
+            <h3>Status Base:</h3>
+            <div class="stats" id="pokemon-stats">
+                <!-- Status será carregado via JavaScript -->
+            </div>
+            
+            <button class="btn restart-btn" id="restart-btn">Fazer Quiz Novamente</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Quem é Você Pokémon &copy; 2023 - Todos os direitos reservados à Nintendo e The Pokémon Company</p>
+    </footer>
+
+    <script>
+        // Base de dados de Pokémon (1ª a 4ª geração)
+        const pokemonData = [
+            {
+                id: 1,
+                name: "Bulbasaur",
+                type: "Planta/Veneno",
+                description: "Bulbasaur é um Pokémon sábio e calmo. Ele representa aqueles que são pacientes, gostam de natureza e têm um crescimento constante na vida.",
+                stats: {
+                    hp: 45,
+                    attack: 49,
+                    defense: 49,
+                    speed: 45,
+                    special_attack: 65,
+                    special_defense: 65
+                },
+                image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+            },
+            {
+                id: 4,
+                name: "Charmander",
+                type: "Fogo",
+                description: "Charmander é para os corajosos e passionais. Se você é determinado, entusiasta e tem um espírito competitivo, este é seu companheiro!",
+                stats: {
+                    hp: 39,
+                    attack: 52,
+                    defense: 43,
+                    speed: 65,
+                    special_attack: 60,
+                    special_defense: 50
+                },
+                image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
+            },
+            {
+                id: 7,
+                name: "Squirtle",
+                type: "Água",
+                description: "Squirtle é o escolhido dos estratégicos e adaptáveis. Se você é leal, prático e sabe fluir com as situações, Squirtle é seu match!",
+                stats: {
+                    hp: 44,
+                    attack: 48,
+                    defense: 65,
+                    speed: 43,
+                    special_attack: 50,
+                    special_defense: 64
+                },
+                image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png"
+            },
+            {
+                id: 25,
+                name: "Pikachu",
+                type: "Elétrico",
+                description: "Pikachu é para os energéticos, carismáticos e um pouco teimosos. Se você é popular, rápido e cheio de energia, Pikachu é sua alma gêmea!",
+                stats: {
+                    hp: 35,
+                    attack: 55,
+                    defense: 40,
+                    speed: 90,
+                    special_attack: 50,
+                    special_defense: 50
+                },
+                image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+            },
+            {
+                id: 133,
+                name: "Eevee",
+                type: "Normal",
+                description: "Eevee é para os adaptáveis e versáteis. Se você tem múltiplos talentos e se adapta fácil a diferentes situações, Eevee é seu Pokémon!",
+                stats: {
+                    hp: 55,
+                    attack: 55,
+                    defense: 50,
+                    speed: 55,
+                    special_attack: 45,
+                    special_defense: 65
+                },
+                image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png"
+            },
+            {
+                id: 150,
+                name: "Mewtwo",
+                type: "Psíquico",
+                description: "Mewtwo é para os intelectuais, sérios e poderosos. Se você é inteligente, focado e tem grande potencial mental, Mewtwo é sua combinação!",
+                stats: {
+                    hp: 106,
+                    attack: 110,
+                    defense: 90,
+                    speed: 130,
+                    special_attack: 154,
+                    special_defense: 90
+                },
+                image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png"
+            },
+            {
+                id: 258,
+                name: "Mudkip",
+                type: "Água",
+                description: "Mudkip é para os descontraídos e amigáveis. Se você é fácil de lidar, leal e tem uma natureza relaxada, Mudkip é seu parceiro ideal!",
+                stats: {
+                    hp: 50,
+                    attack: 70,
+                    defense: 50,
+                    speed: 40,
+                    special_attack: 50,
+                    special_defense: 50
+                },
+                image: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/258.png"
+            }
+        ];
+
+        // Perguntas do quiz
+        const questions = [
+            {
+                question: "Como você descreveria sua personalidade?",
+                options: [
+                    "Calmo e analítico",
+                    "Energético e extrovertido",
+                    "Adaptável e versátil",
+                    "Misterioso e introspectivo"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Qual é seu ambiente preferido?",
+                options: [
+                    "Floresta ou jardim",
+                    "Áreas urbanas movimentadas",
+                    "Praia ou perto da água",
+                    "Lugares tranquilos e isolados"
+                ],
+                scores: [1, 25, 7, 150]
+            },
+            {
+                question: "Como você lida dengan desafios?",
+                options: [
+                    "Com paciência e estratégia",
+                    "Com entusiasmo e coragem",
+                    "Adaptando-me à situação",
+                    "Com inteligência e planejamento"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Qual é seu tipo de clima preferido?",
+                options: [
+                    "Dias ensolarados e quentes",
+                    "Tempo nublado e ameno",
+                    "Dias chuvosos",
+                    "Não tenho preferência, adapto-me a qualquer clima"
+                ],
+                scores: [4, 1, 7, 133]
+            },
+            {
+                question: "Como você se socializa?",
+                options: [
+                    "Prefiro pequenos grupos de amigos próximos",
+                    "Adoro grandes grupos e festas",
+                    "Me adapto a diferentes grupos sociais",
+                    "Sou seletivo e prefiro poucas interações profundas"
+                ],
+                scores: [1, 25, 133, 150]
+            },
+            {
+                question: "Qual é sua abordagem em relação a objetivos?",
+                options: [
+                    "Crescimento constante e estável",
+                    "Ação imediata e passionista",
+                    "Flexibilidade e adaptação",
+                    "Análise profunda antes de agir"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Como você reage sob pressão?",
+                options: [
+                    "Mantenho a calma e penso logicamente",
+                    "Fico energizado e enfrento de frente",
+                    "Me adapto à situação e encontro soluções",
+                    "Analiso todas as variáveis antes de agir"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Qual atividade você mais gosta?",
+                options: [
+                    "Jardinar ou cuidar de plantas",
+                    "Esportes competitivos",
+                    "Natação ou atividades aquáticas",
+                    "Leitura ou estudos"
+                ],
+                scores: [1, 4, 7, 150]
+            },
+            {
+                question: "Como os amigos te descreveriam?",
+                options: [
+                    "Confiável e estável",
+                    "Animado e carismático",
+                    "Adaptável e fácil de conviver",
+                    "Inteligente e perspicaz"
+                ],
+                scores: [1, 25, 133, 150]
+            },
+            {
+                question: "Qual é sua característica mais marcante?",
+                options: [
+                    "Paciência",
+                    "Coragem",
+                    "Versatilidade",
+                    "Inteligência"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Qual elemento você mais se identifica?",
+                options: [
+                    "Terra/Planta",
+                    "Fogo",
+                    "Água",
+                    "Ar/Psíquico"
+                ],
+                scores: [1, 4, 7, 150]
+            },
+            {
+                question: "Como você toma decisões importantes?",
+                options: [
+                    "Com cuidado e gradualmente",
+                    "Com paixão e convicção",
+                    "Considerando diferentes perspectivas",
+                    "Após análise profunda e racional"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Qual é seu estilo de comunicação?",
+                options: [
+                    "Direto e prático",
+                    "Energético e entusiástico",
+                    "Adapto meu estilo à situação",
+                    "Profundo e analítico"
+                ],
+                scores: [1, 25, 133, 150]
+            },
+            {
+                question: "O que você mais valoriza em amizades?",
+                options: [
+                    "Lealdade e confiança",
+                    "Diversão e aventura",
+                    "Versatilidade e adaptabilidade",
+                    "Intelecto e conversas profundas"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Como você passa seu tempo livre?",
+                options: [
+                    "Cuidando de plantas ou animais",
+                    "Praticando esportes ou atividades físicas",
+                    "Socializando com diferentes grupos",
+                    "Lendo, estudando ou refletindo"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Qual é sua maior força?",
+                options: [
+                    "Persistência",
+                    "Coragem",
+                    "Adaptabilidade",
+                    "Inteligência"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Como você se vê daqui a 5 anos?",
+                options: [
+                    "Crescendo gradualmente e consistentemente",
+                    "Vivendo aventuras emocionantes",
+                    "Explorando diferentes caminhos e possibilidades",
+                    "Desenvolvendo meu potencial intelectual"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Qual dessas frases mais combina com você?",
+                options: [
+                    "Devagar e sempre",
+                    "A vida é uma aventura",
+                    "Variety is the spice of life",
+                    "Conhecimento é poder"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Como você lida com mudanças?",
+                options: [
+                    "Aceito gradualmente",
+                    "Abraço com entusiasmo",
+                    "Me adapto naturalmente",
+                    "Analiso antes de aceitar"
+                ],
+                scores: [1, 4, 133, 150]
+            },
+            {
+                question: "Qual qualidade você mais admira nos outros?",
+                options: [
+                    "Confiança e estabilidade",
+                    "Coragem e paixão",
+                    "Flexibilidade e adaptabilidade",
+                    "Inteligência e sabedoria"
+                ],
+                scores: [1, 4, 133, 150]
+            }
+        ];
+
+        // Variáveis de estado do quiz
+        let currentQuestion = 0;
+        let userScores = {};
+        let selectedOption = null;
+
+        // Elementos DOM
+        const introElement = document.getElementById('intro');
+        const quizContainerElement = document.getElementById('quiz-container');
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const nextButton = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const resultElement = document.getElementById('result');
+        const pokemonNameElement = document.getElementById('pokemon-name');
+        const pokemonTypeElement = document.getElementById('pokemon-type');
+        const pokemonImageElement = document.getElementById('pokemon-image');
+        const pokemonDescriptionElement = document.getElementById('pokemon-description');
+        const pokemonStatsElement = document.getElementById('pokemon-stats');
+        const startButton = document.getElementById('start-btn');
+        const restartButton = document.getElementById('restart-btn');
+
+        // Inicializar o quiz
+        function initQuiz() {
+            // Inicializar contadores de scores
+            pokemonData.forEach(pokemon => {
+                userScores[pokemon.id] = 0;
+            });
+            
+            // Adicionar event listeners
+            startButton.addEventListener('click', startQuiz);
+            nextButton.addEventListener('click', nextQuestion);
+            restartButton.addEventListener('click', restartQuiz);
+        }
+
+        // Iniciar o quiz
+        function startQuiz() {
+            introElement.style.display = 'none';
+            quizContainerElement.style.display = 'block';
+            showQuestion();
+        }
+
+        // Mostrar a pergunta atual
+        function showQuestion() {
+            // Atualizar barra de progresso
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            // Exibir pergunta
+            questionElement.textContent = `${currentQuestion + 1}. ${questions[currentQuestion].question}`;
+            
+            // Limpar opções anteriores
+            optionsElement.innerHTML = '';
+            
+            // Adicionar novas opções
+            questions[currentQuestion].options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.textContent = option;
+                optionElement.dataset.index = index;
+                
+                optionElement.addEventListener('click', () => selectOption(optionElement));
+                
+                optionsElement.appendChild(optionElement);
+            });
+            
+            // Resetar seleção
+            selectedOption = null;
+            nextButton.disabled = true;
+        }
+
+        // Selecionar uma opção
+        function selectOption(optionElement) {
+            // Remover seleção anterior
+            const previouslySelected = document.querySelector('.option.selected');
+            if (previouslySelected) {
+                previouslySelected.classList.remove('selected');
+            }
+            
+            // Selecionar nova opção
+            optionElement.classList.add('selected');
+            selectedOption = parseInt(optionElement.dataset.index);
+            nextButton.disabled = false;
+        }
+
+        // Próxima pergunta
+        function nextQuestion() {
+            if (selectedOption === null) return;
+            
+            // Atualizar scores com base na seleção
+            const pokemonId = questions[currentQuestion].scores[selectedOption];
+            userScores[pokemonId]++;
+            
+            // Avançar para próxima pergunta ou mostrar resultado
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        // Mostrar resultado
+        function showResult() {
+            quizContainerElement.style.display = 'none';
+            resultElement.style.display = 'block';
+            
+            // Encontrar Pokémon com maior score
+            let maxScore = -1;
+            let chosenPokemonId = null;
+            
+            for (const [id, score] of Object.entries(userScores)) {
+                if (score > maxScore) {
+                    maxScore = score;
+                    chosenPokemonId = parseInt(id);
+                }
+            }
+            
+            // Exibir informações do Pokémon
+            const pokemon = pokemonData.find(p => p.id === chosenPokemonId);
+            
+            pokemonNameElement.textContent = pokemon.name;
+            pokemonTypeElement.textContent = pokemon.type;
+            pokemonDescriptionElement.textContent = pokemon.description;
+            
+            // Adicionar imagem
+            const img = document.createElement('img');
+            img.src = pokemon.image;
+            img.alt = pokemon.name;
+            img.onerror = function() {
+                // Fallback em caso de erro no carregamento
+                this.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/0.png';
+            };
+            pokemonImageElement.appendChild(img);
+            
+            // Adicionar stats com barras
+            pokemonStatsElement.innerHTML = '';
+            for (const [stat, value] of Object.entries(pokemon.stats)) {
+                const statElement = document.createElement('div');
+                statElement.classList.add('stat');
+                
+                const statName = document.createElement('div');
+                statName.classList.add('stat-name');
+                
+                // Formatando o nome do stat
+                let statFormatted = stat.replace('_', ' ');
+                statFormatted = statFormatted.split(' ')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+                
+                statName.textContent = statFormatted;
+                
+                const statBarContainer = document.createElement('div');
+                statBarContainer.classList.add('stat-bar-container');
+                
+                const statBar = document.createElement('div');
+                statBar.classList.add('stat-bar');
+                
+                // Calcular a largura da barra (normalizar para um máximo de 255)
+                const maxStatValue = 255;
+                const barWidth = (value / maxStatValue) * 100;
+                statBar.style.width = `${barWidth}%`;
+                statBar.textContent = value;
+                
+                statBarContainer.appendChild(statBar);
+                
+                statElement.appendChild(statName);
+                statElement.appendChild(statBarContainer);
+                
+                pokemonStatsElement.appendChild(statElement);
+            }
+        }
+
+        // Reiniciar quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            
+            // Resetar scores
+            for (const id in userScores) {
+                userScores[id] = 0;
+            }
+            
+            // Limpar resultado anterior
+            while (pokemonImageElement.firstChild) {
+                pokemonImageElement.removeChild(pokemonImageElement.firstChild);
+            }
+            
+            // Voltar para a introdução
+            resultElement.style.display = 'none';
+            introElement.style.display = 'block';
+        }
+
+        // Inicializar quando o documento estiver carregado
+        document.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>

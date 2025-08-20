@@ -1,0 +1,178 @@
+/* Reset básico para remover margens e paddings padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(to bottom, #ff6b6b, #3d7dca);
+    /* Gradiente inspirado em Pokébola */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    padding: 20px;
+}
+
+/* Container principal do jogo */
+.game-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Cabeçalho/Título */
+h1 {
+    color: #ffcb05;
+    /* Amarelo Pokémon */
+    text-shadow: 3px 3px 0 #3d7dca, -1px -1px 0 #3d7dca, 1px -1px 0 #3d7dca, -1px 1px 0 #3d7dca;
+    /* Efeito de contorno */
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+}
+
+/* Área da imagem do Pokémon */
+.pokemon-image {
+    background-color: #f0f0f0;
+    border: 5px solid #3d7dca;
+    border-radius: 15px;
+    height: 250px;
+    margin: 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.pokemon-image img {
+    width: 80%;
+    height: auto;
+    filter: brightness(0);
+    /* Pokémon inicialmente invisível (escuro) */
+    transition: filter 0.5s ease;
+}
+
+.pokemon-image.revealed img {
+    filter: brightness(1);
+    /* Revela a imagem ao acertar */
+}
+
+/* Dica (Tipo do Pokémon) */
+.hint {
+    font-style: italic;
+    margin: 10px 0;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Área de entrada de resposta e botões */
+.input-area {
+    margin: 1.5rem 0;
+}
+
+#guess-input {
+    padding: 12px 15px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    width: 70%;
+    margin-right: 10px;
+}
+
+#guess-input:focus {
+    outline: none;
+    border-color: #3d7dca;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#guess-btn {
+    background-color: #3d7dca;
+    /* Azul Pokémon */
+    color: white;
+    margin-top: 10px;
+}
+
+#guess-btn:hover {
+    background-color: #2a5c9a;
+}
+
+#next-btn {
+    background-color: #ffcb05;
+    /* Amarelo Pokémon */
+    color: #333;
+    display: none;
+    /* Escondido inicialmente */
+    margin-top: 10px;
+}
+
+#next-btn:hover {
+    background-color: #e6b800;
+}
+
+/* Feedback de acerto/erro */
+.feedback {
+    margin-top: 1rem;
+    font-weight: bold;
+    min-height: 24px;
+    font-size: 1.1rem;
+}
+
+.feedback.correct {
+    color: #4caf50;
+    /* Verde para acerto */
+}
+
+.feedback.incorrect {
+    color: #ff5252;
+    /* Vermelho para erro */
+}
+
+/* Contadores de Pontuação */
+.score {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #3d7dca;
+}
+
+/* Responsividade para telas menores (mobile) */
+@media (max-width: 600px) {
+    .game-container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .pokemon-image {
+        height: 200px;
+    }
+
+    #guess-input {
+        width: 100%;
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+
+    button {
+        width: 100%;
+    }
+}
